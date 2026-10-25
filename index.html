@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHILLVIBE ❄️ — Sub-Zero Cold Drink Refreshment & Mixology Lab</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Pacifico & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#FFF8F0',
+                            100: '#FFE8D6',
+                            200: '#FFD0B0',
+                            300: '#FFB380',
+                            400: '#FF9550',
+                            500: '#FF7A20',
+                            600: '#FF6B00', // Core Brand Orange
+                            700: '#E05500',
+                            800: '#B84000',
+                            900: '#8A2D00'
+                        },
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.65)',
+                            lightBorder: 'rgba(255, 255, 255, 0.85)',
+                            dark: 'rgba(15, 23, 42, 0.75)',
+                            darkBorder: 'rgba(255, 255, 255, 0.12)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        script: ['Pacifico', 'cursive']
+                    },
+                    animation: {
+                        'float': 'float 5s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 2.5s infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'ripple': 'ripple 3s linear infinite',
+                        'shimmer': 'shimmer 2s infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-18px) rotate(4deg)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.08)' }
+                        },
+                        ripple: {
+                            '0%': { width: '0px', height: '0px', opacity: '0.8' },
+                            '100%': { width: '500px', height: '500px', opacity: '0' }
+                        },
+                        shimmer: {
+                            '100%': { transform: 'translateX(100%)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .font-script {
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* High visual glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 16px 36px -10px rgba(255, 107, 0, 0.1);
+        }
+
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 24px -6px rgba(255, 107, 0, 0.08);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.4);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(255, 107, 0, 0.22);
+            border-color: rgba(255, 107, 0, 0.5);
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 107, 0, 0.25);
+        }
+
+        .dark .glass-input {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+        }
+
+        /* Ambient Glow Orbs */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 248, 240, 0.8);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF6B00;
+            border-radius: 99px;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 3D Bottle Rendering Effects */
+        .bottle-shadow {
+            filter: drop-shadow(0 25px 35px rgba(255, 107, 0, 0.35));
+        }
+
+        /* Wheel Canvas Styling */
+        #wheelCanvas {
+            transform-origin: center;
+            transition: transform 4s cubic-bezier(0.15, 0.99, 0.18, 1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-brand-50 via-white to-amber-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 font-sans min-h-screen relative overflow-x-hidden transition-colors duration-300">
+
+    <!-- Ambient Glowing Orbs -->
+    <div class="glow-orb w-[500px] h-[500px] bg-brand-500/20 top-[-100px] left-[-150px] animate-pulse-glow"></div>
+    <div class="glow-orb w-[600px] h-[600px] bg-amber-400/20 top-[30%] right-[-200px] animate-pulse-glow" style="animation-delay: 1.5s;"></div>
+    <div class="glow-orb w-[450px] h-[450px] bg-brand-600/15 bottom-[10%] left-[20%] animate-pulse-glow" style="animation-delay: 3s;"></div>
+
+    <!-- Floating Background Glass Particles (Ice & Fruits) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" id="bg-particles">
+        <div class="absolute top-[15%] left-[4%] w-14 h-14 glass-card rounded-2xl flex items-center justify-center text-2xl animate-float opacity-80">🧊</div>
+        <div class="absolute top-[50%] left-[2%] w-12 h-12 glass-card rounded-2xl flex items-center justify-center text-xl animate-float-delayed opacity-70">🍊</div>
+        <div class="absolute top-[25%] right-[3%] w-16 h-16 glass-card rounded-2xl flex items-center justify-center text-3xl animate-float opacity-90">🍹</div>
+        <div class="absolute top-[70%] right-[6%] w-12 h-12 glass-card rounded-2xl flex items-center justify-center text-2xl animate-float-delayed opacity-75">🍋</div>
+    </div>
+
+    <!-- 1. TOP ANNOUNCEMENT BAR & NAVIGATION -->
+    <div class="bg-gradient-to-r from-brand-600 via-brand-500 to-amber-500 text-white text-xs sm:text-sm font-semibold py-2 px-4 text-center tracking-wide flex items-center justify-center gap-3 relative z-50 shadow-sm">
+        <span class="flex items-center gap-1.5">
+            <i data-lucide="snowflake" class="w-4 h-4 animate-spin-slow"></i>
+            <span>Sub-Zero Chilled Guarantee (-2°C) | Free Delivery on Orders Above $20</span>
+        </span>
+        <button onclick="openSpinWheel()" class="hidden sm:inline-flex items-center gap-1 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white text-xs px-2.5 py-0.5 rounded-full border border-white/40 transition">
+            <i data-lucide="gift" class="w-3.5 h-3.5"></i> Spin & Win Discount
+        </button>
+    </div>
+
+    <header class="sticky top-0 z-40 glass-panel border-b border-white/80 dark:border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group shrink-0">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-amber-400 p-[2px] shadow-lg shadow-brand-600/30 group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center text-brand-600">
+                        <i data-lucide="cup-soda" class="w-7 h-7"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-2xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-1">
+                        CHILL<span class="text-brand-600">VIBE</span> <span class="text-lg">❄️</span>
+                    </span>
+                    <span class="block text-[10px] font-bold tracking-widest text-brand-600 uppercase">Sub-Zero Mixology</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-7 font-medium text-sm text-slate-700 dark:text-slate-200">
+                <a href="#hero" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Home</a>
+                <a href="#mood-picker" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Mood Picker</a>
+                <a href="#menu" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Drinks Menu</a>
+                <a href="#mixology" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Custom Mix Bench</a>
+                <a href="#reviews" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Reviews</a>
+                <a href="#locations" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Outlets</a>
+                <a href="#track-order" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors flex items-center gap-1 text-brand-600 font-semibold">
+                    <i data-lucide="truck" class="w-4 h-4"></i> Track Order
+                </a>
+            </nav>
+
+            <!-- Search & Actions -->
+            <div class="flex items-center gap-3">
+                <!-- Search Bar -->
+                <div class="relative hidden sm:block w-48 xl:w-64">
+                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search drinks..." class="w-full glass-input rounded-full pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500/50">
+                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-400"></i>
+                    <!-- Autocomplete Dropdown -->
+                    <div id="searchAutocomplete" class="hidden absolute left-0 right-0 top-12 glass-panel rounded-2xl shadow-xl overflow-hidden z-50 max-h-60 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800"></div>
+                </div>
+
+                <!-- Dark/Light Mode Toggle -->
+                <button onclick="toggleDarkMode()" title="Toggle Theme" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-slate-700 dark:text-amber-400 hover:text-brand-600 transition">
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCartDrawer()" class="relative px-4 py-2.5 rounded-full bg-gradient-to-r from-brand-600 to-amber-500 hover:from-brand-700 hover:to-amber-600 text-white shadow-lg shadow-brand-600/25 flex items-center gap-2 group transition-all hover:scale-105">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span class="font-bold text-sm hidden sm:inline" id="cartTotalHeader">$0.00</span>
+                    <span id="cartCountBadge" class="w-5 h-5 rounded-full bg-white text-brand-600 text-xs font-black flex items-center justify-center shadow">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section id="hero" class="relative min-h-[calc(100vh-5rem)] flex items-center justify-center py-12 lg:py-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            
+            <!-- Left Headline & Content -->
+            <div class="lg:col-span-7 text-center lg:text-left space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-brand-500/30 text-brand-600 dark:text-brand-400 text-xs sm:text-sm font-bold shadow-sm">
+                    <span class="flex h-2 w-2 rounded-full bg-brand-600 animate-ping"></span>
+                    <span>Sub-Zero Chilled Drink Experience (-2°C)</span>
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl xl:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.1]">
+                    Unleash the <br class="hidden sm:inline">
+                    <span class="bg-gradient-to-r from-brand-600 via-brand-500 to-amber-500 bg-clip-text text-transparent">Ultimate Cold Refreshment</span>
+                </h1>
+
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    Crafted with 100% natural citrus extracts, sparkling effervescence, and crushed sub-zero ice crystals. Tailor your ice, sweetness, and carbonation level live!
+                </p>
+
+                <!-- Script CTA Buttons -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                    <a href="#menu" class="group relative px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-600 to-amber-500 hover:from-brand-700 hover:to-amber-600 text-white shadow-xl shadow-brand-600/30 overflow-hidden transition-all hover:scale-105 active:scale-95">
+                        <span class="relative z-10 font-script text-2xl tracking-wide">Grab Your Chill 🍹</span>
+                        <div class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                    </a>
+
+                    <a href="#mixology" class="px-8 py-4 rounded-2xl glass-card text-slate-900 dark:text-white font-script text-2xl hover:border-brand-500 transition-all hover:scale-105 active:scale-95">
+                        Build Custom Drink 🧪
+                    </a>
+                </div>
+
+                <!-- Highlights Stats -->
+                <div class="pt-8 grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800">
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-brand-600">-2°C</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Chilled Guarantee</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-brand-600">100%</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Natural Citrus</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-brand-600">15 Min</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Express Delivery</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Interactive 3D Bottle Display -->
+            <div class="lg:col-span-5 relative flex items-center justify-center">
+                <!-- Glowing Liquid Backsplash -->
+                <div class="absolute w-80 h-80 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-brand-600/40 via-amber-400/30 to-transparent blur-3xl animate-pulse"></div>
+                
+                <!-- Central Can Display -->
+                <div class="relative z-10 animate-float flex flex-col items-center">
+                    <div class="w-64 h-[420px] rounded-full bg-gradient-to-b from-brand-500 via-amber-500 to-brand-700 p-1.5 shadow-2xl shadow-brand-600/50 relative overflow-hidden flex flex-col items-center justify-between py-8 border-4 border-white/60">
+                        
+                        <!-- Top Rim -->
+                        <div class="w-44 h-8 rounded-full bg-gradient-to-r from-slate-200 via-white to-slate-300 shadow-md flex items-center justify-center">
+                            <div class="w-32 h-3 rounded-full bg-slate-400/50"></div>
+                        </div>
+
+                        <!-- Brand Can Typography -->
+                        <div class="text-center my-auto transform -rotate-90">
+                            <span class="font-script text-5xl text-white drop-shadow-md block">Orange Blast</span>
+                            <span class="text-xs font-black tracking-widest text-amber-200 uppercase">Sub-Zero Carbonated</span>
+                        </div>
+
+                        <!-- Frost & Bubbles Overlay -->
+                        <div class="absolute inset-0 bg-white/10 backdrop-blur-[1px] pointer-events-none border-t border-b border-white/40"></div>
+                        
+                        <!-- Sub-zero Badge on Can -->
+                        <div class="bg-white/90 text-brand-600 text-xs font-black px-3 py-1 rounded-full shadow-md z-10 flex items-center gap-1">
+                            <i data-lucide="snowflake" class="w-3.5 h-3.5"></i> -2°C ULTRA COLD
+                        </div>
+                    </div>
+
+                    <!-- Ambient Floating Fruits & Ice Cubes around Bottle -->
+                    <div class="absolute -top-6 -left-8 w-16 h-16 glass-card rounded-2xl flex items-center justify-center text-3xl shadow-lg animate-float-delayed">🍊</div>
+                    <div class="absolute top-1/2 -right-10 w-16 h-16 glass-card rounded-2xl flex items-center justify-center text-3xl shadow-lg animate-float">🧊</div>
+                    <div class="absolute bottom-4 -left-6 w-14 h-14 glass-card rounded-2xl flex items-center justify-center text-2xl shadow-lg animate-float-delayed">🍋</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. CHILL MOOD PICKER INTERACTIVE SECTION -->
+    <section id="mood-picker" class="py-16 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-brand-600 font-bold text-xs uppercase tracking-widest">Personalized Recommendation</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">How Are You Feeling Right Now?</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">Pick your current mood and let our Mixology AI select your ideal sub-zero drink!</p>
+            </div>
+
+            <!-- Mood Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-10" id="moodButtons">
+                <button onclick="selectMood('energy')" class="mood-btn px-6 py-3 rounded-2xl glass-card font-semibold text-sm flex items-center gap-2 hover:border-brand-500 transition active hover:scale-105 border-brand-500 bg-brand-500/10 text-brand-600">
+                    <span>⚡</span> Need Energy Boost
+                </button>
+                <button onclick="selectMood('heatwave')" class="mood-btn px-6 py-3 rounded-2xl glass-card font-semibold text-sm flex items-center gap-2 hover:border-brand-500 transition active hover:scale-105">
+                    <span>🔥</span> Summer Heat Wave
+                </button>
+                <button onclick="selectMood('workout')" class="mood-btn px-6 py-3 rounded-2xl glass-card font-semibold text-sm flex items-center gap-2 hover:border-brand-500 transition active hover:scale-105">
+                    <span>🏋️</span> Post Workout Chill
+                </button>
+                <button onclick="selectMood('relax')" class="mood-btn px-6 py-3 rounded-2xl glass-card font-semibold text-sm flex items-center gap-2 hover:border-brand-500 transition active hover:scale-105">
+                    <span>🌙</span> Late Night Relax
+                </button>
+            </div>
+
+            <!-- Mood Recommendation Result -->
+            <div id="moodResult" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. FULL DRINKS CATALOG / MENU WITH RICH FILTERS -->
+    <section id="menu" class="py-16 relative z-10 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <span class="text-brand-600 font-bold text-xs uppercase tracking-widest">Sub-Zero Drink Menu</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">Explore Cold Drinks Catalog</h2>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-4 no-scrollbar mb-8" id="categoryTabs">
+                <button onclick="filterCategory('All')" class="cat-tab px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider bg-brand-600 text-white shadow-md shadow-brand-600/20 shrink-0">All Drinks</button>
+                <button onclick="filterCategory('Carbonated Fizz')" class="cat-tab px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider glass-card text-slate-700 dark:text-slate-300 hover:border-brand-500 shrink-0">Carbonated Fizz</button>
+                <button onclick="filterCategory('Frozen Slushies')" class="cat-tab px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider glass-card text-slate-700 dark:text-slate-300 hover:border-brand-500 shrink-0">Frozen Slushies</button>
+                <button onclick="filterCategory('Cold Brew Iced Teas')" class="cat-tab px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider glass-card text-slate-700 dark:text-slate-300 hover:border-brand-500 shrink-0">Iced Teas</button>
+                <button onclick="filterCategory('Fruit Citrus Zests')" class="cat-tab px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider glass-card text-slate-700 dark:text-slate-300 hover:border-brand-500 shrink-0">Citrus Zests</button>
+                <button onclick="filterCategory('Sub-Zero Mocktails')" class="cat-tab px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider glass-card text-slate-700 dark:text-slate-300 hover:border-brand-500 shrink-0">Mocktails</button>
+            </div>
+
+            <!-- Filter Controls Bar -->
+            <div class="glass-panel p-4 rounded-3xl mb-8 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-4 flex-wrap">
+                    <!-- Price Range Slider -->
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-slate-600 dark:text-slate-300">Max Price:</span>
+                        <input type="range" id="priceRange" min="3" max="12" step="0.5" value="12" oninput="updatePriceFilter(this.value)" class="accent-brand-600 w-28">
+                        <span id="priceValue" class="text-xs font-extrabold text-brand-600">$12.00</span>
+                    </div>
+
+                    <!-- Calorie Filter -->
+                    <select id="calorieFilter" onchange="applyFilters()" class="glass-input rounded-full text-xs font-semibold px-3 py-1.5">
+                        <option value="all">All Calories</option>
+                        <option value="low">Under 100 Cal</option>
+                        <option value="zero">Zero Sugar / Cal</option>
+                    </select>
+                </div>
+
+                <!-- Sorting -->
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-600 dark:text-slate-300">Sort By:</span>
+                    <select id="sortBy" onchange="applyFilters()" class="glass-input rounded-full text-xs font-semibold px-3 py-1.5">
+                        <option value="popular">Most Popular</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Drinks Catalog Grid (12 Items) -->
+            <div id="drinksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Dynamically populated JS cards -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. INTERACTIVE DRINK CUSTOMIZER MODAL ("THE ICE & SWEETNESS LAB") -->
+    <div id="customizerModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md hidden transition-opacity">
+        <div class="glass-panel max-w-lg w-full rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto relative animate-scale-up">
+            <button onclick="closeCustomizer()" class="absolute top-5 right-5 w-8 h-8 rounded-full glass-card flex items-center justify-center text-slate-500 hover:text-brand-600">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-4 mb-6">
+                <div id="custEmoji" class="w-16 h-16 rounded-2xl bg-brand-500/20 flex items-center justify-center text-4xl shadow-inner">
+                    🍹
+                </div>
+                <div>
+                    <h3 id="custName" class="text-xl font-black text-slate-900 dark:text-white">Customizing Drink</h3>
+                    <p id="custBasePrice" class="text-brand-600 font-extrabold text-lg">$4.99</p>
+                </div>
+            </div>
+
+            <!-- Options Form -->
+            <div class="space-y-6">
+                <!-- Size Selection -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Select Serving Size</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button type="button" onclick="setCustOption('size', 'Regular', 0)" class="cust-size-btn px-3 py-2 rounded-xl border border-brand-500 bg-brand-500/10 text-brand-600 font-bold text-xs text-center">Regular (350ml)</button>
+                        <button type="button" onclick="setCustOption('size', 'Large', 1.0)" class="cust-size-btn px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-xs text-center">Large (500ml) +$1.00</button>
+                        <button type="button" onclick="setCustOption('size', 'Jumbo', 2.0)" class="cust-size-btn px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-xs text-center">Jumbo (750ml) +$2.00</button>
+                    </div>
+                </div>
+
+                <!-- Ice Level -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Sub-Zero Ice Level</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <button type="button" onclick="setCustOption('ice', 'No Ice')" class="cust-ice-btn px-2 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-xs text-center">No Ice</button>
+                        <button type="button" onclick="setCustOption('ice', '25% Light Ice')" class="cust-ice-btn px-2 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-xs text-center">25% Light</button>
+                        <button type="button" onclick="setCustOption('ice', '50% Regular Ice')" class="cust-ice-btn px-2 py-2 rounded-xl border border-brand-500 bg-brand-500/10 text-brand-600 font-bold text-xs text-center">50% Regular</button>
+                        <button type="button" onclick="setCustOption('ice', '100% Sub-Zero Ice')" class="cust-ice-btn px-2 py-2 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-xs text-center">100% Sub-Zero</button>
+                    </div>
+                </div>
+
+                <!-- Sweetness Level -->
+                <div>
+                    <div class="flex justify-between text-xs font-bold uppercase text-slate-600 dark:text-slate-400 mb-2">
+                        <span>Sweetness Level</span>
+                        <span id="sweetnessDisplay" class="text-brand-600">100% Full Sweetness</span>
+                    </div>
+                    <input type="range" id="sweetnessSlider" min="0" max="100" step="25" value="100" oninput="updateSweetnessDisplay(this.value)" class="accent-brand-600 w-full">
+                </div>
+
+                <!-- Fresh Toppings -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Add Fresh Toppings (+$0.75 each)</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="glass-card p-2.5 rounded-xl flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                            <input type="checkbox" value="Mint Leaves" onchange="toggleTopping(this)" class="accent-brand-600"> Mint Leaves 🌿
+                        </label>
+                        <label class="glass-card p-2.5 rounded-xl flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                            <input type="checkbox" value="Lemon Slice" onchange="toggleTopping(this)" class="accent-brand-600"> Lemon Slice 🍋
+                        </label>
+                        <label class="glass-card p-2.5 rounded-xl flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                            <input type="checkbox" value="Popping Boba" onchange="toggleTopping(this)" class="accent-brand-600"> Popping Boba 🧋
+                        </label>
+                        <label class="glass-card p-2.5 rounded-xl flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                            <input type="checkbox" value="Chia Seeds" onchange="toggleTopping(this)" class="accent-brand-600"> Chia Seeds 🌰
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Total & Add Button -->
+                <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs text-slate-500 font-semibold block">Total Price</span>
+                        <span id="custFinalPrice" class="text-2xl font-extrabold text-brand-600">$4.99</span>
+                    </div>
+                    <button onclick="addCustomizedToCart()" class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-brand-600 to-amber-500 text-white font-script text-xl shadow-lg shadow-brand-600/30 hover:scale-105 transition">
+                        Add to Order 🍹
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. MIX-YOUR-OWN COLD DRINK CREATOR (CUSTOM MIXOLOGY BENCH) -->
+    <section id="mixology" class="py-16 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-3xl p-6 sm:p-12 relative overflow-hidden">
+                <div class="max-w-3xl">
+                    <span class="text-brand-600 font-bold text-xs uppercase tracking-widest">Interactive Mixology Lab</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">Mix Your Own Signature Drink</h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm mt-2">Become a master mixologist. Select your liquid base, fruit infusion, fizz level, and custom title!</p>
+
+                    <!-- Mixology Form Steps -->
+                    <div class="mt-8 space-y-6">
+                        <!-- Step 1: Base -->
+                        <div>
+                            <span class="text-xs font-black uppercase text-brand-600">Step 1: Choose Liquid Base</span>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
+                                <button onclick="setMixBase('Sparkling Soda', 2.50)" class="mix-base-btn p-3 rounded-2xl glass-card text-xs font-bold text-center border-brand-500">Sparkling Soda ($2.50)</button>
+                                <button onclick="setMixBase('Green Tea', 2.00)" class="mix-base-btn p-3 rounded-2xl glass-card text-xs font-bold text-center">Green Tea ($2.00)</button>
+                                <button onclick="setMixBase('Coconut Water', 3.00)" class="mix-base-btn p-3 rounded-2xl glass-card text-xs font-bold text-center">Coconut Water ($3.00)</button>
+                                <button onclick="setMixBase('Club Tonic', 2.25)" class="mix-base-btn p-3 rounded-2xl glass-card text-xs font-bold text-center">Club Tonic ($2.25)</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Fruit Flavor -->
+                        <div>
+                            <span class="text-xs font-black uppercase text-brand-600">Step 2: Fruit Extract</span>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
+                                <button onclick="setMixFlavor('Orange Zest', 1.50)" class="mix-flavor-btn p-3 rounded-2xl glass-card text-xs font-bold text-center border-brand-500">🍊 Orange Zest ($1.50)</button>
+                                <button onclick="setMixFlavor('Blue Curacao', 1.75)" class="mix-flavor-btn p-3 rounded-2xl glass-card text-xs font-bold text-center">🫐 Blue Curacao ($1.75)</button>
+                                <button onclick="setMixFlavor('Mango Passion', 1.50)" class="mix-flavor-btn p-3 rounded-2xl glass-card text-xs font-bold text-center">🥭 Mango Passion ($1.50)</button>
+                                <button onclick="setMixFlavor('Wild Peach', 1.25)" class="mix-flavor-btn p-3 rounded-2xl glass-card text-xs font-bold text-center">🍑 Wild Peach ($1.25)</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Custom Title -->
+                        <div>
+                            <span class="text-xs font-black uppercase text-brand-600">Step 3: Name Your Drink</span>
+                            <input type="text" id="customMixName" placeholder="e.g. Orange Thunder Fizz" class="w-full glass-input rounded-2xl px-4 py-3 text-sm mt-2 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        </div>
+
+                        <!-- Custom Drink Summary & Order -->
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
+                            <div>
+                                <span class="text-xs text-slate-500 font-medium block">Custom Mix Total</span>
+                                <span id="mixTotalPrice" class="text-2xl font-black text-brand-600">$4.00</span>
+                            </div>
+                            <button onclick="addCustomMixToCart()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-brand-600 to-amber-500 text-white font-script text-xl shadow-lg shadow-brand-600/30 hover:scale-105 transition">
+                                Create & Add to Cart 🧪
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. CUSTOMER REVIEWS & SUBMISSION FORM -->
+    <section id="reviews" class="py-16 relative z-10 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-brand-600 font-bold text-xs uppercase tracking-widest">Chilled Testimonials</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">What Drink Lovers Say</h2>
+            </div>
+
+            <!-- Reviews Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" id="reviewsGrid">
+                <div class="glass-card p-6 rounded-3xl">
+                    <div class="flex items-center gap-1 text-amber-400 mb-3">★★★★★</div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 italic mb-4">"The -2°C Orange Zest Blast is insanely refreshing! Came packed in a thermal chiller box."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-500/20 font-bold flex items-center justify-center text-brand-600">AH</div>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white">Ali Hassan</h4>
+                            <span class="text-[10px] text-slate-400">Verified Drinker</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl">
+                    <div class="flex items-center gap-1 text-amber-400 mb-3">★★★★★</div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 italic mb-4">"Loved the Custom Mixology bench! Created my own Sparkling Blue Citrus and it arrived in 12 mins."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-500/20 font-bold flex items-center justify-center text-brand-600">FK</div>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white">Fatima Khan</h4>
+                            <span class="text-[10px] text-slate-400">Mixology Enthusiast</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl">
+                    <div class="flex items-center gap-1 text-amber-400 mb-3">★★★★★</div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 italic mb-4">"The ice level customizer is a game changer. Regular 50% ice is perfection."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-500/20 font-bold flex items-center justify-center text-brand-600">MS</div>
+                        <div>
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white">Muhammad Saad</h4>
+                            <span class="text-[10px] text-slate-400">Verified Drinker</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Submission Form -->
+            <div class="glass-panel max-w-2xl mx-auto p-6 sm:p-8 rounded-3xl">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Leave Your Review</h3>
+                <form onsubmit="submitReview(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" required id="revName" placeholder="Your Name" class="glass-input rounded-xl px-4 py-2.5 text-xs">
+                        <select id="revRating" class="glass-input rounded-xl px-4 py-2.5 text-xs">
+                            <option value="5">5 Stars - Ultra Refreshing</option>
+                            <option value="4">4 Stars - Very Chilled</option>
+                            <option value="3">3 Stars - Good</option>
+                        </select>
+                    </div>
+                    <textarea required id="revComment" rows="3" placeholder="Share your cold drink experience..." class="w-full glass-input rounded-xl p-4 text-xs"></textarea>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-brand-600 text-white font-script text-lg hover:bg-brand-700 transition">
+                        Submit Review ✨
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. PROMOTIONS & SPIN-THE-WHEEL REWARDS -->
+    <section id="promotions" class="py-16 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden">
+                <span class="text-brand-600 font-bold text-xs uppercase tracking-widest">Chill Rewards</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">Spin the Wheel for Free Discounts</h2>
+                <p class="text-slate-600 dark:text-slate-300 text-sm mt-2 max-w-xl mx-auto">Get up to 30% OFF on your sub-zero order instantly!</p>
+
+                <div class="mt-6 flex justify-center">
+                    <button onclick="openSpinWheel()" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-600 to-amber-500 text-white font-script text-2xl shadow-xl shadow-brand-600/30 hover:scale-105 transition">
+                        Spin Rewards Wheel 🎡
+                    </button>
+                </div>
+
+                <div class="mt-8 flex flex-wrap justify-center gap-4 text-xs font-bold text-slate-500">
+                    <span class="glass-card px-3 py-1.5 rounded-full">Use Code: <strong class="text-brand-600">CHILL20</strong> (20% OFF)</span>
+                    <span class="glass-card px-3 py-1.5 rounded-full">Use Code: <strong class="text-brand-600">FREESHIP</strong> (Free Delivery)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPIN THE WHEEL MODAL -->
+    <div id="wheelModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md hidden">
+        <div class="glass-panel max-w-md w-full rounded-3xl p-6 text-center relative">
+            <button onclick="closeSpinWheel()" class="absolute top-4 right-4 w-8 h-8 rounded-full glass-card flex items-center justify-center">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Spin & Win Coupon</h3>
+            
+            <div class="relative w-64 h-64 mx-auto my-4">
+                <canvas id="wheelCanvas" width="256" height="256" class="rounded-full shadow-xl border-4 border-white"></canvas>
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-2 text-2xl">👇</div>
+            </div>
+
+            <button id="spinBtn" onclick="spinWheelAction()" class="w-full py-3 rounded-2xl bg-brand-600 text-white font-script text-xl shadow-lg">
+                SPIN NOW! 🎯
+            </button>
+            <p id="wheelResult" class="text-xs font-bold text-brand-600 mt-3 min-h-[18px]"></p>
+        </div>
+    </div>
+
+    <!-- 9. FULL CART & CHECKOUT DRAWER -->
+    <div id="cartDrawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md glass-panel shadow-2xl translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-6 h-6 text-brand-600"></i>
+                <h3 class="text-lg font-extrabold text-slate-900 dark:text-white">Your Chilled Cart</h3>
+            </div>
+            <button onclick="toggleCartDrawer()" class="w-8 h-8 rounded-full glass-card flex items-center justify-center">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Free Delivery Progress Bar -->
+        <div class="bg-brand-500/10 p-3 px-6 border-b border-brand-500/20">
+            <div class="flex justify-between text-xs font-bold text-brand-600 mb-1">
+                <span id="freeShipText">Add $20.00 for FREE Chilled Delivery</span>
+                <span id="freeShipPercent">0%</span>
+            </div>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                <div id="freeShipBar" class="bg-brand-600 h-full w-0 transition-all duration-300"></div>
+            </div>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cartItemsList" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Dynamically populated JS cart items -->
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="p-6 border-t border-slate-200 dark:border-slate-800 space-y-4 bg-white/50 dark:bg-slate-900/50">
+            <!-- Promo Code Input -->
+            <div class="flex gap-2">
+                <input type="text" id="promoInput" placeholder="Promo Code (CHILL20)" class="glass-input rounded-xl px-3 py-2 text-xs flex-1 uppercase">
+                <button onclick="applyPromoCode()" class="px-4 py-2 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 rounded-xl font-bold text-xs">Apply</button>
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="space-y-1.5 text-xs">
+                <div class="flex justify-between text-slate-500">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal" class="font-bold text-slate-800 dark:text-slate-200">$0.00</span>
+                </div>
+                <div class="flex justify-between text-slate-500">
+                    <span>Delivery Fee</span>
+                    <span id="cartDeliveryFee" class="font-bold text-slate-800 dark:text-slate-200">$2.50</span>
+                </div>
+                <div class="flex justify-between text-brand-600 font-semibold" id="discountRow" style="display:none;">
+                    <span>Discount</span>
+                    <span id="cartDiscount">-$0.00</span>
+                </div>
+                <div class="flex justify-between text-base font-black text-slate-900 dark:text-white pt-2 border-t border-slate-200 dark:border-slate-800">
+                    <span>Total Amount</span>
+                    <span id="cartFinalTotal" class="text-brand-600">$0.00</span>
+                </div>
+            </div>
+
+            <button onclick="openCheckoutModal()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-brand-600 to-amber-500 text-white font-script text-2xl shadow-xl shadow-brand-600/30 hover:scale-[1.02] active:scale-95 transition">
+                Proceed to Checkout 🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md hidden">
+        <div class="glass-panel max-w-lg w-full rounded-3xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto relative">
+            <button onclick="closeCheckoutModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full glass-card flex items-center justify-center">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-2">Sub-Zero Order Checkout</h3>
+            <p class="text-xs text-slate-500 mb-6">Enter details for 15-minute express cold delivery.</p>
+
+            <form onsubmit="confirmOrder(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Full Name</label>
+                    <input type="text" required placeholder="John Doe" class="w-full glass-input rounded-xl px-4 py-2.5 text-xs">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Phone Number</label>
+                        <input type="tel" required placeholder="+92 300 1234567" class="w-full glass-input rounded-xl px-4 py-2.5 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Delivery Slot</label>
+                        <select class="w-full glass-input rounded-xl px-4 py-2.5 text-xs">
+                            <option>ASAP (Within 15 Mins)</option>
+                            <option>In 30 Minutes</option>
+                            <option>Evening Slot (6 PM - 8 PM)</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Delivery Address</label>
+                    <textarea required rows="2" placeholder="Street, Sector, City" class="w-full glass-input rounded-xl p-3 text-xs"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Payment Method</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="glass-card p-2.5 rounded-xl flex items-center justify-center text-xs font-bold gap-1 cursor-pointer">
+                            <input type="radio" name="pay" checked class="accent-brand-600"> COD
+                        </label>
+                        <label class="glass-card p-2.5 rounded-xl flex items-center justify-center text-xs font-bold gap-1 cursor-pointer">
+                            <input type="radio" name="pay" class="accent-brand-600"> Card
+                        </label>
+                        <label class="glass-card p-2.5 rounded-xl flex items-center justify-center text-xs font-bold gap-1 cursor-pointer">
+                            <input type="radio" name="pay" class="accent-brand-600"> JazzCash
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-2xl bg-brand-600 text-white font-script text-2xl shadow-lg mt-4">
+                    Confirm & Dispatch Order 🚚
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 10. LIVE ORDER TRACKING DASHBOARD -->
+    <section id="track-order" class="py-16 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-3xl p-6 sm:p-10">
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                    <div>
+                        <span class="text-brand-600 font-bold text-xs uppercase tracking-widest">Real-time Order Status</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Live Order Tracker</h2>
+                    </div>
+                    <div class="glass-card px-4 py-2 rounded-2xl text-xs font-bold text-brand-600">
+                        Order #CV-89421
+                    </div>
+                </div>
+
+                <!-- Step Progress Bar -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="glass-card p-4 rounded-2xl border-brand-500 bg-brand-500/10 text-brand-600">
+                        <div class="text-xs font-black uppercase">Step 1</div>
+                        <div class="text-sm font-bold mt-1">Order Received</div>
+                        <div class="text-[10px] opacity-80 mt-1">Confirmed @ -2°C</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl border-brand-500 bg-brand-500/10 text-brand-600">
+                        <div class="text-xs font-black uppercase">Step 2</div>
+                        <div class="text-sm font-bold mt-1">Preparing Drink</div>
+                        <div class="text-[10px] opacity-80 mt-1">Crushing Fresh Ice</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl opacity-60">
+                        <div class="text-xs font-black uppercase">Step 3</div>
+                        <div class="text-sm font-bold mt-1">Thermal Packed</div>
+                        <div class="text-[10px] mt-1">Sub-zero Box</div>
+                    </div>
+                    <div class="glass-card p-4 rounded-2xl opacity-60">
+                        <div class="text-xs font-black uppercase">Step 4</div>
+                        <div class="text-sm font-bold mt-1">Rider En Route</div>
+                        <div class="text-[10px] mt-1">Arriving Soon</div>
+                    </div>
+                </div>
+
+                <!-- Live Countdown & Map Mock -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-2xl text-center flex flex-col justify-center items-center">
+                        <span class="text-xs font-bold text-slate-500 uppercase">Estimated Arrival</span>
+                        <span id="trackerCountdown" class="text-4xl font-black text-brand-600 my-2">11:45</span>
+                        <span class="text-[11px] text-slate-400">Minutes : Seconds</span>
+                    </div>
+
+                    <div class="md:col-span-2 glass-card p-4 rounded-2xl relative min-h-[160px] flex items-center justify-center bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <!-- Simulated Rider Map -->
+                        <div class="text-center">
+                            <i data-lucide="map-pin" class="w-8 h-8 text-brand-600 mx-auto animate-bounce"></i>
+                            <p class="text-xs font-bold text-slate-700 dark:text-slate-200 mt-2">Rider Express Unit #4 is 1.2 km away from your location</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. LOCATIONS & CONTACT US -->
+    <section id="locations" class="py-16 relative z-10 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Outlets Locator -->
+                <div class="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl">
+                    <span class="text-brand-600 font-bold text-xs uppercase tracking-widest">Physical Chill Outlets</span>
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1 mb-6">Find Nearest Mixology Bar</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="glass-card p-4 rounded-2xl flex items-start gap-4">
+                            <div class="p-3 rounded-xl bg-brand-500/20 text-brand-600"><i data-lucide="store" class="w-6 h-6"></i></div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">Downtown Chill Hub</h4>
+                                <p class="text-xs text-slate-500 mt-0.5">Mall Road, Express Sector, Main Outlet</p>
+                                <span class="inline-block mt-2 text-[10px] font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded-full">Open Now • 10 AM - 12 AM</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-4 rounded-2xl flex items-start gap-4">
+                            <div class="p-3 rounded-xl bg-brand-500/20 text-brand-600"><i data-lucide="store" class="w-6 h-6"></i></div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">Gulberg Express Lounge</h4>
+                                <p class="text-xs text-slate-500 mt-0.5">Main Boulevard, Block B3</p>
+                                <span class="inline-block mt-2 text-[10px] font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded-full">Open Now • 11 AM - 2 AM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl">
+                    <span class="text-brand-600 font-bold text-xs uppercase tracking-widest">Get In Touch</span>
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1 mb-6">Contact Mixology Team</h3>
+
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <input type="text" required placeholder="Name" class="glass-input rounded-xl px-4 py-2.5 text-xs">
+                            <input type="email" required placeholder="Email" class="glass-input rounded-xl px-4 py-2.5 text-xs">
+                        </div>
+                        <input type="text" required placeholder="Subject" class="glass-input rounded-xl px-4 py-2.5 text-xs w-full">
+                        <textarea required rows="3" placeholder="Message..." class="glass-input rounded-xl p-3 text-xs w-full"></textarea>
+                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-brand-600 text-white font-script text-lg">Send Message 📩</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. FOOTER -->
+    <footer class="glass-panel border-t border-slate-200 dark:border-slate-800 pt-12 pb-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Info -->
+                <div class="space-y-4">
+                    <span class="text-2xl font-black text-slate-900 dark:text-white">CHILL<span class="text-brand-600">VIBE</span> ❄️</span>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Sub-Zero cold drink delivery and interactive custom mixology lab. Guaranteed -2°C coldness upon delivery.
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-3">Quick Navigation</h4>
+                    <ul class="space-y-2 text-xs text-slate-500">
+                        <li><a href="#hero" class="hover:text-brand-600">Home</a></li>
+                        <li><a href="#menu" class="hover:text-brand-600">Drinks Catalog</a></li>
+                        <li><a href="#mixology" class="hover:text-brand-600">Custom Mixology</a></li>
+                        <li><a href="#track-order" class="hover:text-brand-600">Live Tracker</a></li>
+                    </ul>
+                </div>
+
+                <!-- Store Info -->
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-3">Operating Hours</h4>
+                    <p class="text-xs text-slate-500">Monday - Sunday: 10:00 AM - 02:00 AM</p>
+                    <p class="text-xs text-slate-500 mt-2">Cold Hotline: +1 (800) 555-CHILL</p>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-3">Get Free Coupons</h4>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Your email..." class="glass-input rounded-xl px-3 py-2 text-xs flex-1">
+                        <button onclick="alert('Subscribed! Check your inbox for 15% discount code.')" class="px-3 py-2 bg-brand-600 text-white text-xs font-bold rounded-xl">Join</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-400">
+                © 2026 CHILLVIBE Mixology Labs. All rights reserved. Crafted for Sub-Zero Refreshment.
+            </div>
+        </div>
+    </footer>
+
+    <!-- INLINE JAVASCRIPT APP STATE & LOGIC -->
+    <script>
+        // --- 1. DATA MODELS ---
+        const drinksData = [
+            { id: 1, name: "Orange Blast Soda", cat: "Carbonated Fizz", price: 4.50, calories: 120, rating: 4.9, emoji: "🍊", desc: "100% natural orange zest with effervescent soda bubbles." },
+            { id: 2, name: "Sub-Zero Citrus Zest", cat: "Fruit Citrus Zests", price: 5.00, calories: 95, rating: 4.8, emoji: "🍋", desc: "Fresh pressed key lime & mandarin over crushed sub-zero ice." },
+            { id: 3, name: "Frozen Mango Slushie", cat: "Frozen Slushies", price: 5.50, calories: 140, rating: 5.0, emoji: "🥭", desc: "Thick smooth frozen mango nectar crushed at -4°C." },
+            { id: 4, name: "Peach Iced Brew Tea", cat: "Cold Brew Iced Teas", price: 4.00, calories: 80, rating: 4.7, emoji: "🍑", desc: "Slow steeped black tea infused with sweet wild peach nectar." },
+            { id: 5, name: "Blue Lagoon Mocktail", cat: "Sub-Zero Mocktails", price: 6.00, calories: 110, rating: 4.9, emoji: "🫐", desc: "Blue Curacao syrup, club tonic, fresh mint, and popping boba." },
+            { id: 6, name: "Sparkling Blood Orange", cat: "Carbonated Fizz", price: 4.75, calories: 105, rating: 4.8, emoji: "🍹", desc: "Exotic Mediterranean blood orange juice with sparkling soda." },
+            { id: 7, name: "Pineapple Ice Crush", cat: "Frozen Slushies", price: 5.25, calories: 130, rating: 4.6, emoji: "🍍", desc: "Tropical sweet pineapple slushie with coconut cream swirl." },
+            { id: 8, name: "Green Tea Mint Cooler", cat: "Cold Brew Iced Teas", price: 3.75, calories: 45, rating: 4.9, emoji: "🍵", desc: "Cold brewed Jasmine green tea with fresh bruised mint." },
+            { id: 9, name: "Sub-Zero Energy Fizz", cat: "Carbonated Fizz", price: 5.50, calories: 90, rating: 4.8, emoji: "⚡", desc: "Electrolyte infused citrus sparkle for fast energy revival." },
+            { id: 10, name: "Zero Sugar Orange Tonic", cat: "Fruit Citrus Zests", price: 4.25, calories: 0, rating: 4.7, emoji: "🍊", desc: "Stevia sweetened zero calorie sparkling citrus hydration." },
+            { id: 11, name: "Passion Fruit Sunset", cat: "Sub-Zero Mocktails", price: 6.50, calories: 115, rating: 5.0, emoji: "🌅", desc: "Layered passion fruit juice, pomegranate, and club soda." },
+            { id: 12, name: "Wild Berry Slush", cat: "Frozen Slushies", price: 5.75, calories: 135, rating: 4.8, emoji: "🍓", desc: "Triple berry blend frozen to icy slushie perfection." }
+        ];
+
+        let cart = [];
+        let wishlist = [];
+        let currentFilterCategory = "All";
+        let activePromoDiscount = 0;
+        let selectedCustomItem = null;
+
+        // Customizer state
+        let customOptions = {
+            size: 'Regular',
+            sizeExtra: 0,
+            ice: '50% Regular Ice',
+            sweetness: 100,
+            toppings: []
+        };
+
+        // Custom Mixology Bench state
+        let mixBench = {
+            base: 'Sparkling Soda',
+            basePrice: 2.50,
+            flavor: 'Orange Zest',
+            flavorPrice: 1.50
+        };
+
+        // --- 2. INITIALIZATION ---
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderMenuGrid(drinksData);
+            selectMood('energy');
+            updateCartUI();
+            initWheelCanvas();
+            startTrackerTimer();
+        });
+
+        // --- 3. THEME TOGGLE ---
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        // --- 4. MENU FILTERING & SEARCH ---
+        function renderMenuGrid(items) {
+            const grid = document.getElementById('drinksGrid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400 font-bold">No drinks matched your filter criteria!</div>`;
+                return;
+            }
+
+            items.forEach(drink => {
+                const isWish = wishlist.includes(drink.id);
+                const card = document.createElement('div');
+                card.className = 'glass-card p-5 rounded-3xl relative flex flex-col justify-between group';
+                card.innerHTML = `
+                    <button onclick="toggleWishlist(${drink.id})" class="absolute top-4 right-4 w-8 h-8 rounded-full glass-panel flex items-center justify-center text-slate-400 hover:text-red-500 z-10 transition">
+                        <i data-lucide="heart" class="w-4 h-4 ${isWish ? 'fill-red-500 text-red-500' : ''}"></i>
+                    </button>
+
+                    <div class="text-center py-4 relative">
+                        <div class="text-6xl my-2 group-hover:scale-110 transition-transform duration-300 inline-block">${drink.emoji}</div>
+                        <span class="inline-block px-2.5 py-0.5 rounded-full bg-brand-500/10 text-brand-600 text-[10px] font-black uppercase mt-2">${drink.cat}</span>
+                        <h3 class="font-extrabold text-slate-900 dark:text-white text-base mt-2">${drink.name}</h3>
+                        <p class="text-slate-500 text-xs mt-1 line-clamp-2 px-2">${drink.desc}</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 mt-2">
+                        <div>
+                            <span class="text-xs text-slate-400 font-semibold block">${drink.calories} Cal</span>
+                            <span class="text-lg font-black text-brand-600">$${drink.price.toFixed(2)}</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <button onclick="openCustomizer(${drink.id})" class="px-2.5 py-2 rounded-xl glass-card text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-brand-500">⚙️ Custom</button>
+                            <button onclick="quickAddToCart(${drink.id})" class="px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-script text-sm shadow-md shadow-brand-600/30 transition">Add 🍹</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        function filterCategory(cat) {
+            currentFilterCategory = cat;
+            document.querySelectorAll('.cat-tab').forEach(btn => {
+                if (btn.innerText.toLowerCase().includes(cat.toLowerCase()) || (cat === 'All' && btn.innerText.includes('ALL'))) {
+                    btn.className = "cat-tab px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider bg-brand-600 text-white shadow-md shadow-brand-600/20 shrink-0";
+                } else {
+                    btn.className = "cat-tab px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider glass-card text-slate-700 dark:text-slate-300 hover:border-brand-500 shrink-0";
+                }
+            });
+            applyFilters();
+        }
+
+        function updatePriceFilter(val) {
+            document.getElementById('priceValue').innerText = `$${parseFloat(val).toFixed(2)}`;
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const maxPrice = parseFloat(document.getElementById('priceRange').value);
+            const calFilter = document.getElementById('calorieFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            let filtered = drinksData.filter(d => {
+                const matchCat = currentFilterCategory === "All" || d.cat === currentFilterCategory;
+                const matchPrice = d.price <= maxPrice;
+                let matchCal = true;
+                if (calFilter === "low") matchCal = d.calories < 100;
+                if (calFilter === "zero") matchCal = d.calories === 0;
+                return matchCat && matchPrice && matchCal;
+            });
+
+            if (sortBy === "price-low") filtered.sort((a,b) => a.price - b.price);
+            if (sortBy === "price-high") filtered.sort((a,b) => b.price - a.price);
+            if (sortBy === "rating") filtered.sort((a,b) => b.rating - a.rating);
+
+            renderMenuGrid(filtered);
+        }
+
+        function handleSearch(query) {
+            const autocomplete = document.getElementById('searchAutocomplete');
+            if (!query.trim()) {
+                autocomplete.classList.add('hidden');
+                return;
+            }
+            const matches = drinksData.filter(d => d.name.toLowerCase().includes(query.toLowerCase()));
+            if (matches.length > 0) {
+                autocomplete.innerHTML = matches.map(m => `
+                    <div onclick="openCustomizer(${m.id})" class="p-3 hover:bg-brand-500/10 cursor-pointer flex items-center gap-3">
+                        <span class="text-2xl">${m.emoji}</span>
+                        <div>
+                            <div class="text-xs font-bold text-slate-900 dark:text-white">${m.name}</div>
+                            <div class="text-[10px] text-brand-600 font-extrabold">$${m.price.toFixed(2)}</div>
+                        </div>
+                    </div>
+                `).join('');
+                autocomplete.classList.remove('hidden');
+            } else {
+                autocomplete.classList.add('hidden');
+            }
+        }
+
+        // --- 5. MOOD PICKER RECOMMENDATIONS ---
+        function selectMood(moodKey) {
+            const container = document.getElementById('moodResult');
+            let moodDrinks = [];
+            if (moodKey === 'energy') moodDrinks = [drinksData[8], drinksData[0], drinksData[5]];
+            if (moodKey === 'heatwave') moodDrinks = [drinksData[1], drinksData[2], drinksData[6]];
+            if (moodKey === 'workout') moodDrinks = [drinksData[7], drinksData[9], drinksData[3]];
+            if (moodKey === 'relax') moodDrinks = [drinksData[3], drinksData[7], drinksData[10]];
+
+            container.innerHTML = moodDrinks.map(d => `
+                <div class="glass-card p-5 rounded-3xl flex items-center gap-4">
+                    <span class="text-5xl">${d.emoji}</span>
+                    <div class="flex-1">
+                        <span class="text-[10px] font-black uppercase text-brand-600">Ideal Match</span>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white">${d.name}</h4>
+                        <p class="text-xs text-brand-600 font-extrabold mt-0.5">$${d.price.toFixed(2)}</p>
+                    </div>
+                    <button onclick="quickAddToCart(${d.id})" class="px-3 py-2 rounded-xl bg-brand-600 text-white font-script text-xs shadow-md">Add 🍹</button>
+                </div>
+            `).join('');
+        }
+
+        // --- 6. DRINK CUSTOMIZER MODAL ---
+        function openCustomizer(drinkId) {
+            selectedCustomItem = drinksData.find(d => d.id === drinkId);
+            document.getElementById('custName').innerText = selectedCustomItem.name;
+            document.getElementById('custEmoji').innerText = selectedCustomItem.emoji;
+            document.getElementById('custBasePrice').innerText = `$${selectedCustomItem.price.toFixed(2)}`;
+            
+            // reset options
+            customOptions = { size: 'Regular', sizeExtra: 0, ice: '50% Regular Ice', sweetness: 100, toppings: [] };
+            document.getElementById('sweetnessSlider').value = 100;
+            document.getElementById('sweetnessDisplay').innerText = "100% Full Sweetness";
+            document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+            
+            recalcCustomPrice();
+            document.getElementById('customizerModal').classList.remove('hidden');
+            document.getElementById('searchAutocomplete').classList.add('hidden');
+        }
+
+        function closeCustomizer() {
+            document.getElementById('customizerModal').classList.add('hidden');
+        }
+
+        function setCustOption(type, val, extraPrice = 0) {
+            if (type === 'size') {
+                customOptions.size = val;
+                customOptions.sizeExtra = extraPrice;
+            }
+            if (type === 'ice') {
+                customOptions.ice = val;
+            }
+            recalcCustomPrice();
+        }
+
+        function updateSweetnessDisplay(val) {
+            customOptions.sweetness = val;
+            document.getElementById('sweetnessDisplay').innerText = `${val}% Sweetness`;
+        }
+
+        function toggleTopping(cb) {
+            if (cb.checked) {
+                customOptions.toppings.push(cb.value);
+            } else {
+                customOptions.toppings = customOptions.toppings.filter(t => t !== cb.value);
+            }
+            recalcCustomPrice();
+        }
+
+        function recalcCustomPrice() {
+            if (!selectedCustomItem) return;
+            const toppingCost = customOptions.toppings.length * 0.75;
+            const finalPrice = selectedCustomItem.price + customOptions.sizeExtra + toppingCost;
+            document.getElementById('custFinalPrice').innerText = `$${finalPrice.toFixed(2)}`;
+        }
+
+        function addCustomizedToCart() {
+            const toppingCost = customOptions.toppings.length * 0.75;
+            const finalPrice = selectedCustomItem.price + customOptions.sizeExtra + toppingCost;
+
+            cart.push({
+                cartId: Date.now(),
+                name: `${selectedCustomItem.name} (${customOptions.size})`,
+                price: finalPrice,
+                emoji: selectedCustomItem.emoji,
+                details: `${customOptions.ice}, ${customOptions.sweetness}% Sweet${customOptions.toppings.length ? ', ' + customOptions.toppings.join(', ') : ''}`,
+                qty: 1
+            });
+
+            closeCustomizer();
+            updateCartUI();
+            toggleCartDrawer();
+        }
+
+        // --- 7. MIX-YOUR-OWN COLD DRINK BENCH ---
+        function setMixBase(name, price) {
+            mixBench.base = name;
+            mixBench.basePrice = price;
+            recalcMixBench();
+        }
+
+        function setMixFlavor(name, price) {
+            mixBench.flavor = name;
+            mixBench.flavorPrice = price;
+            recalcMixBench();
+        }
+
+        function recalcMixBench() {
+            const total = mixBench.basePrice + mixBench.flavorPrice;
+            document.getElementById('mixTotalPrice').innerText = `$${total.toFixed(2)}`;
+        }
+
+        function addCustomMixToCart() {
+            const titleInput = document.getElementById('customMixName').value.trim();
+            const title = titleInput || `${mixBench.flavor} ${mixBench.base} Mix`;
+            const price = mixBench.basePrice + mixBench.flavorPrice;
+
+            cart.push({
+                cartId: Date.now(),
+                name: title,
+                price: price,
+                emoji: "🧪",
+                details: `Base: ${mixBench.base}, Flavor: ${mixBench.flavor}`,
+                qty: 1
+            });
+
+            updateCartUI();
+            toggleCartDrawer();
+        }
+
+        // --- 8. CART & CHECKOUT DRAWER ---
+        function quickAddToCart(drinkId) {
+            const item = drinksData.find(d => d.id === drinkId);
+            cart.push({
+                cartId: Date.now(),
+                name: item.name,
+                price: item.price,
+                emoji: item.emoji,
+                details: "50% Regular Ice, 100% Sweetness",
+                qty: 1
+            });
+            updateCartUI();
+            toggleCartDrawer();
+        }
+
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        function updateCartUI() {
+            const cartList = document.getElementById('cartItemsList');
+            cartList.innerHTML = '';
+
+            let subtotal = 0;
+            let totalItems = 0;
+
+            if (cart.length === 0) {
+                cartList.innerHTML = `<div class="text-center py-12 text-slate-400 font-bold text-xs">Your cart is empty! Pick a cold drink to refresh.</div>`;
+            } else {
+                cart.forEach(item => {
+                    subtotal += item.price * item.qty;
+                    totalItems += item.qty;
+
+                    const div = document.createElement('div');
+                    div.className = "glass-card p-4 rounded-2xl flex items-center gap-3";
+                    div.innerHTML = `
+                        <span class="text-3xl">${item.emoji}</span>
+                        <div class="flex-1">
+                            <h5 class="text-xs font-bold text-slate-900 dark:text-white">${item.name}</h5>
+                            <p class="text-[10px] text-slate-400 mt-0.5">${item.details}</p>
+                            <span class="text-xs font-black text-brand-600 mt-1 block">$${(item.price * item.qty).toFixed(2)}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="changeQty(${item.cartId}, -1)" class="w-6 h-6 rounded-lg glass-panel flex items-center justify-center font-bold text-xs">-</button>
+                            <span class="text-xs font-bold">${item.qty}</span>
+                            <button onclick="changeQty(${item.cartId}, 1)" class="w-6 h-6 rounded-lg glass-panel flex items-center justify-center font-bold text-xs">+</button>
+                        </div>
+                    `;
+                    cartList.appendChild(div);
+                });
+            }
+
+            // Calculations
+            const deliveryFee = subtotal >= 20 || subtotal === 0 ? 0.00 : 2.50;
+            const discountVal = (subtotal * activePromoDiscount);
+            const finalTotal = Math.max(0, subtotal + deliveryFee - discountVal);
+
+            document.getElementById('cartTotalHeader').innerText = `$${finalTotal.toFixed(2)}`;
+            document.getElementById('cartCountBadge').innerText = totalItems;
+            document.getElementById('cartSubtotal').innerText = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cartDeliveryFee').innerText = deliveryFee === 0 ? 'FREE' : `$${deliveryFee.toFixed(2)}`;
+            document.getElementById('cartFinalTotal').innerText = `$${finalTotal.toFixed(2)}`;
+
+            // Discount Row
+            if (activePromoDiscount > 0) {
+                document.getElementById('discountRow').style.display = 'flex';
+                document.getElementById('cartDiscount').innerText = `-$${discountVal.toFixed(2)}`;
+            } else {
+                document.getElementById('discountRow').style.display = 'none';
+            }
+
+            // Free Delivery Bar
+            const prog = Math.min(100, (subtotal / 20) * 100);
+            document.getElementById('freeShipBar').style.width = `${prog}%`;
+            document.getElementById('freeShipPercent').innerText = `${Math.round(prog)}%`;
+            if (subtotal >= 20) {
+                document.getElementById('freeShipText').innerText = "🎉 You Unlocked FREE Chilled Delivery!";
+            } else {
+                document.getElementById('freeShipText').innerText = `Add $${(20 - subtotal).toFixed(2)} more for FREE Chilled Delivery`;
+            }
+        }
+
+        function changeQty(cartId, delta) {
+            const item = cart.find(i => i.cartId === cartId);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.cartId !== cartId);
+                }
+            }
+            updateCartUI();
+        }
+
+        function applyPromoCode() {
+            const code = document.getElementById('promoInput').value.trim().toUpperCase();
+            if (code === 'CHILL20') {
+                activePromoDiscount = 0.20;
+                alert('Success! 20% discount applied to your order.');
+            } else if (code === 'FREESHIP') {
+                activePromoDiscount = 0.10;
+                alert('Success! Free shipping discount code applied.');
+            } else {
+                alert('Invalid promo code. Try CHILL20');
+            }
+            updateCartUI();
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            toggleCartDrawer();
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+        }
+
+        function confirmOrder(e) {
+            e.preventDefault();
+            closeCheckoutModal();
+            cart = [];
+            updateCartUI();
+            alert('🎉 Order Received! Dispatched at -2°C. Live tracking started below.');
+            document.getElementById('track-order').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- 9. WISHLIST TOGGLE ---
+        function toggleWishlist(id) {
+            if (wishlist.includes(id)) {
+                wishlist = wishlist.filter(w => w !== id);
+            } else {
+                wishlist.push(id);
+            }
+            applyFilters();
+        }
+
+        // --- 10. REVIEWS & CONTACT ---
+        function submitReview(e) {
+            e.preventDefault();
+            const name = document.getElementById('revName').value;
+            const comment = document.getElementById('revComment').value;
+            
+            const grid = document.getElementById('reviewsGrid');
+            const card = document.createElement('div');
+            card.className = 'glass-card p-6 rounded-3xl';
+            card.innerHTML = `
+                <div class="flex items-center gap-1 text-amber-400 mb-3">★★★★★</div>
+                <p class="text-sm text-slate-600 dark:text-slate-300 italic mb-4">"${comment}"</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-500/20 font-bold flex items-center justify-center text-brand-600">NEW</div>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-900 dark:text-white">${name}</h4>
+                        <span class="text-[10px] text-slate-400">Just Now</span>
+                    </div>
+                </div>
+            `;
+            grid.prepend(card);
+            alert('Thank you! Your review has been published.');
+            e.target.reset();
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            alert('Message Sent! Our sub-zero team will reply within 1 hour.');
+            e.target.reset();
+        }
+
+        // --- 11. SPIN THE WHEEL REWARDS ---
+        function initWheelCanvas() {
+            const canvas = document.getElementById('wheelCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const slices = ['10% OFF', 'FREE BOBA', '20% OFF', 'FREE DRINK', '15% OFF', '30% OFF'];
+            const colors = ['#FF6B00', '#FFA726', '#FF8C00', '#FFB74D', '#E65100', '#FF7A20'];
+
+            slices.forEach((slice, i) => {
+                const angle = (Math.PI * 2) / slices.length;
+                ctx.beginPath();
+                ctx.fillStyle = colors[i];
+                ctx.moveTo(128, 128);
+                ctx.arc(128, 128, 128, i * angle, (i + 1) * angle);
+                ctx.fill();
+
+                ctx.save();
+                ctx.translate(128, 128);
+                ctx.rotate(i * angle + angle / 2);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = 'bold 12px sans-serif';
+                ctx.fillText(slice, 50, 4);
+                ctx.restore();
+            });
+        }
+
+        function openSpinWheel() {
+            document.getElementById('wheelModal').classList.remove('hidden');
+        }
+
+        function closeSpinWheel() {
+            document.getElementById('wheelModal').classList.add('hidden');
+        }
+
+        function spinWheelAction() {
+            const wheel = document.getElementById('wheelCanvas');
+            const randomDegree = 1800 + Math.floor(Math.random() * 360);
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
+            
+            setTimeout(() => {
+                document.getElementById('wheelResult').innerText = "🎉 Congratulations! You won 20% OFF (Code: CHILL20)";
+            }, 4000);
+        }
+
+        // --- 12. LIVE TRACKER COUNTDOWN ---
+        function startTrackerTimer() {
+            let totalSeconds = 705; // 11 mins 45 secs
+            setInterval(() => {
+                if (totalSeconds > 0) {
+                    totalSeconds--;
+                    const mins = Math.floor(totalSeconds / 60);
+                    const secs = totalSeconds % 60;
+                    document.getElementById('trackerCountdown').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
